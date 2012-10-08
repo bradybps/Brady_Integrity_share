@@ -1,0 +1,31 @@
+
+config WL12XX
+	tristate "TI wl12xx support"
+	depends on WL12XX_MENU && GENERIC_HARDIRQS
+	depends on INET
+	select FW_LOADER
+	---help---
+	  This module adds support for wireless adapters based on TI wl1271 and
+	  TI wl1273 chipsets. This module does *not* include support for wl1251.
+	  For wl1251 support, use the separate homonymous driver instead.
+
+	  If you choose to build a module, it will be called wl12xx. Say N if
+	  unsure.
+
+
+config WL12XX_SDIO
+	tristate "TI wl12xx SDIO support"
+	depends on WL12XX && MMC
+	---help---
+	  This module adds support for the SDIO interface of adapters using
+	  TI wl12xx chipsets.  Select this if your platform is using
+	  the SDIO bus.
+
+	  If you choose to build a module, it'll be called wl12xx_sdio.
+	  Say N if unsure.
+
+
+config WL12XX_PLATFORM_DATA
+	bool
+	depends on WL12XX_SDIO != n || WL1251_SDIO != n
+	default y
